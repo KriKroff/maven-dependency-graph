@@ -7,11 +7,7 @@ import com.github.krikroff.dependencygraph.model.GraphWriter;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
-import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.Map;
 
 @Named("dot")
@@ -20,7 +16,7 @@ public class DotWriter implements GraphWriter {
 
     @Override
     public void writeGraph(OutputStream output, Graph graph) {
-        try (RuntimeWriter writer = new RuntimeWriter(new BufferedWriter(new PrintWriter(output)))) {
+        try (GraphOutputWriter writer = new GraphOutputWriter(output)) {
             writer.write("digraph G {\n");
 
             writer.write("// NODES\n");
@@ -34,46 +30,25 @@ public class DotWriter implements GraphWriter {
         }
     }
 
-    private void writeEdge(RuntimeWriter writer, GraphEdge edge) {
-        writer.write("\t" + DotEscaper.escape(edge.getSourceIdentifier()) + " -> " + DotEscaper.escape(edge.getTargetIdentifier()));
+    private void writeEdge(GraphOutputWriter writer, GraphEdge edge) {
+        writer.write("\t" + WriterEscaper.escape(edge.getSourceIdentifier()) + " -> " + WriterEscaper.escape(edge.getTargetIdentifier()));
         writeAttributes(writer, edge.getAdditionalProperties());
         writer.write("\n");
     }
 
-    private void writeNode(RuntimeWriter writer, GraphNode node) {
-        writer.write("\t" + DotEscaper.escape(node.getIdentifier()));
+    private void writeNode(GraphOutputWriter writer, GraphNode node) {
+        writer.write("\t" + WriterEscaper.escape(node.getIdentifier()));
         writeAttributes(writer, node.getAdditionalProperties());
         writer.write("\n");
     }
 
-    private void writeAttributes(RuntimeWriter writer, Map<String, Object> additionalProperties) {
+    private void writeAttributes(GraphOutputWriter writer, Map<String, Object> additionalProperties) {
         if (!additionalProperties.isEmpty()) {
             writer.write(" [");
             additionalProperties.forEach((key, value) ->
-                    writer.write(DotEscaper.escape(key) + "=" + DotEscaper.escape(value) + " ")
+                    writer.write(WriterEscaper.escape(key) + "=" + WriterEscaper.escape(value) + " ")
             );
             writer.write("]");
-        }
-    }
-
-    private static class RuntimeWriter implements AutoCloseable {
-        private final Writer writer;
-
-        private RuntimeWriter(Writer writer) {
-            this.writer = writer;
-        }
-
-        private void write(String value) {
-            try {
-                writer.write(value);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        @Override
-        public void close() throws Exception {
-            writer.close();
         }
     }
 }

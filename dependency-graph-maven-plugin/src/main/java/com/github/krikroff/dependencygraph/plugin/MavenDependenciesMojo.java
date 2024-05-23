@@ -82,7 +82,7 @@ public class MavenDependenciesMojo extends AbstractMojo {
                         new MavenProjectIdentifier(
                                 a.getGroupId(),
                                 a.getArtifactId()),
-                                artifactIdentifiers.contains(a)
+                                !artifactIdentifiers.contains(a)
                         )
                 )
                 .collect(Collectors.toList());

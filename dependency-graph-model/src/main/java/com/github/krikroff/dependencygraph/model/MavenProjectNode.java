@@ -1,6 +1,5 @@
 package com.github.krikroff.dependencygraph.model;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,9 +22,9 @@ public class MavenProjectNode implements GraphNode {
     @Override
     public Map<String, Object> getAdditionalProperties() {
         Map<String, Object> additionalProperties = new HashMap<>();
-
+        additionalProperties.put("groupId", mavenProjectIdentifier.getGroupId());
+        additionalProperties.put("artifactId", mavenProjectIdentifier.getArtifactId());
         additionalProperties.put("external", external);
-
         return additionalProperties;
     }
 }

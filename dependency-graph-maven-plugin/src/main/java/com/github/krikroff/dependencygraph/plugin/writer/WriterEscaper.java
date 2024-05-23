@@ -18,7 +18,7 @@ package com.github.krikroff.dependencygraph.plugin.writer;
 import java.util.regex.Pattern;
 
 
-public final class DotEscaper {
+public final class WriterEscaper {
 
   private static final String QUOTE_REPLACEMENT = "\\\\\"";
   private static final Pattern REPLACE_NEWLINE_PATTERN = Pattern.compile("(\\r\\n)|[\\r\\n]", Pattern.DOTALL);
@@ -26,7 +26,7 @@ public final class DotEscaper {
 
   private String value;
 
-  private DotEscaper(String value) {
+  private WriterEscaper(String value) {
     this.value = value;
   }
 
@@ -35,19 +35,19 @@ public final class DotEscaper {
   }
 
   public static String escape(Object value) {
-    return new DotEscaper(value.toString())
+    return new WriterEscaper(value.toString())
       .escapeNewLines()
       .escapeQuotes()
       .quoteIfRequired()
       .getValue();
   }
 
-  private DotEscaper escapeNewLines() {
+  private WriterEscaper escapeNewLines() {
     this.value = REPLACE_NEWLINE_PATTERN.matcher(this.value).replaceAll("\\\\n");
     return this;
   }
 
-  private DotEscaper escapeQuotes() {
+  private WriterEscaper escapeQuotes() {
     if (isQuoted()) {
       String valueToQuote = this.value.substring(1, this.value.length() - 1);
       this.value = "\"" + REPLACE_QUOTE_PATTERN.matcher(valueToQuote).replaceAll(QUOTE_REPLACEMENT) + "\"";
@@ -58,7 +58,7 @@ public final class DotEscaper {
     return this;
   }
 
-  private DotEscaper quoteIfRequired() {
+  private WriterEscaper quoteIfRequired() {
     if (requiresQuoting()) {
       this.value = "\"" + this.value + "\"";
     }
