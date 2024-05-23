@@ -20,7 +20,7 @@
         <version.maven.resolver>1.9.20</version.maven.resolver>
         <version.sisu-maven-plugin>0.9.0.M2</version.sisu-maven-plugin>
         <version.plexus-utils>4.0.1</version.plexus-utils>
-        <version.plexus-xml>3.0.0</version.plexus-xml>
+        <version.plexus-xml>4.0.4</version.plexus-xml>
         <version.junit5>5.10.2</version.junit5>
         <version.mockito>5.12.0</version.mockito>
         <version.assertj>3.25.3</version.assertj>
