@@ -20,6 +20,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.krikroff</groupId>
+            <artifactId>dependency-graph-model</artifactId>
+        </dependency>
+
         <!-- maven -->
         <dependency>
             <groupId>org.apache.maven</groupId>
