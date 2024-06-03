@@ -16,7 +16,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
 
-        <version.maven-plugin-tools>3.12.0</version.maven-plugin-tools>
+        <version.maven-plugin-tools>3.13.1</version.maven-plugin-tools>
         <version.maven.resolver>1.9.20</version.maven.resolver>
         <version.sisu-maven-plugin>0.9.0.M2</version.sisu-maven-plugin>
         <version.plexus-utils>4.0.1</version.plexus-utils>
